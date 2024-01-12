@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433274927814",
+    "project_id": "jk-blog-app",
+    "storage_bucket": "jk-blog-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433274927814:android:7c0ee4b4d8fa38e1fc35c7",
+        "android_client_info": {
+          "package_name": "com.example.jkblog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmtXe-S7001Vy0GyujO8Y0Q0jja8nZHr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
