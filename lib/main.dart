@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jkblog/bloc/splash_screen_bloc/splash_screen_bloc.dart';
 import 'package:jkblog/firebase_options.dart';
+import 'package:jkblog/screens/home_screen.dart';
+import 'package:jkblog/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,12 +19,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SplashScreenBloc()..add(InitializeApp())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        ),
+        home: const SplashScreen(),
+        initialRoute: "/",
+        routes: {
+          '/home': (context) => const HomeScreen()
+        },
       ),
-      home: const SplashScreen(),
     );
   }
 }
