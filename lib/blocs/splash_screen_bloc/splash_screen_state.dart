@@ -4,4 +4,4 @@ sealed class SplashScreenState {}
 
 final class SplashScreenInitialState extends SplashScreenState {}
 
-final class NavigateToHome extends SplashScreenState {}
+final class NavigateTo extends SplashScreenState {}
