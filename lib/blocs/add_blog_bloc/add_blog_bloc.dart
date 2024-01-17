@@ -11,7 +11,12 @@ class AddBlogBloc extends Bloc<AddBlogInitialEvent, AddBlogState> {
   final picker = ImagePicker();
 
   AddBlogBloc() : super(AddBlogInitial()) {
-    on<PickedImage>((event, emit) async {
+    on<PickedImage>(_onPickedImage);
+
+    on<AddBlog>(_onAddBlog);
+  }
+
+  void _onPickedImage(PickedImage event, Emitter<AddBlogState> emit) async {
       try {
         final pickedImage = await picker.pickImage(
           source: event.source,
@@ -26,9 +31,9 @@ class AddBlogBloc extends Bloc<AddBlogInitialEvent, AddBlogState> {
       } catch (e) {
         emit(ImageisNotSelected(error: e.toString()));
       }
-    });
+    }
 
-    on<AddBlog>((event, emit) async {
+    void _onAddBlog(AddBlog event, Emitter<AddBlogState> emit) async {
       emit(BlogLoading());
       try {
         await DatabaseService().uploadBlog(event.image, event.title, event.description).then((value) {
@@ -41,8 +46,7 @@ class AddBlogBloc extends Bloc<AddBlogInitialEvent, AddBlogState> {
       } catch (e) {
         emit(BlogNotAddedSuccessfully(error: e.toString()));
       }
-    });
-  }
+    }
 
   @override
   void onChange(Change<AddBlogState> change) {

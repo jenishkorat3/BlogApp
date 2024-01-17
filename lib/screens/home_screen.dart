@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          body: state is BlogsScreenState ? const BlogScreen() : const ProfileScreen(),
+          body: state is BlogsScreenState ? const BlogScreen() : ProfileScreen(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               if (index == 0) {

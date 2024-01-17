@@ -11,7 +11,6 @@ import 'package:jkblog/widgets/widget.dart';
 class AddBlogScreen extends StatelessWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-
   File? image;
   final picker = ImagePicker();
 
