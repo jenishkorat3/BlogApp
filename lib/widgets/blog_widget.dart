@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:jkblog/blocs/delete_blog_bloc/delete_blog_bloc.dart';
 import 'package:jkblog/screens/full_image_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -25,7 +26,6 @@ Widget blogsCard(context, DataSnapshot snapshot, String uEmail, String caller) {
                   MaterialPageRoute(
                     builder: (context) => FullImageScreen(
                       blogImageUrl: snapshot.child('bImage').value.toString(),
-                      caller: caller,
                     ),
                   ),
                 );
@@ -72,15 +72,43 @@ Widget blogsCard(context, DataSnapshot snapshot, String uEmail, String caller) {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                uEmail.contains("@") ? "By: ${uEmail.substring(0, uEmail.indexOf("@"))}" : "By: $uEmail",
-                style: const TextStyle(fontWeight: FontWeight.w500),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Align(
+                  child: Text(
+                    uEmail.contains("@") ? "By: ${uEmail.substring(0, uEmail.indexOf("@"))}" : "",
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
               ),
-            ),
+              caller == "profile_screen"
+                  ? Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Align(
+                        child: InkWell(
+                          onTap: () {
+                            context.read<DeleteBlogBloc>().add(
+                                  DeleteBlog(
+                                    bid: snapshot.child('bid').value.toString(),
+                                  ),
+                                );
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ],
           ),
         ],
       ),

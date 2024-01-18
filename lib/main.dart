@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jkblog/blocs/add_blog_bloc/add_blog_bloc.dart';
 import 'package:jkblog/blocs/auth_bloc/auth_bloc.dart';
+import 'package:jkblog/blocs/delete_blog_bloc/delete_blog_bloc.dart';
 import 'package:jkblog/blocs/home_bloc/home_bloc.dart';
 import 'package:jkblog/blocs/splash_screen_bloc/splash_screen_bloc.dart';
 import 'package:jkblog/firebase_options.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => AddBlogBloc()),
+        BlocProvider(create: (context) => DeleteBlogBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

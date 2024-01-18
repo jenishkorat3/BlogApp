@@ -37,4 +37,30 @@ class DatabaseService {
       return e;
     }
   }
+
+  Future deleteBlog(String blogId) async {
+    try {
+      // Get the reference to the blog in the database
+      DatabaseReference blogReference = blogRef.child('Blogs List').child(blogId);
+
+      // Get the blog data to retrieve the image URL
+      DatabaseEvent blogEvent = await blogReference.once();
+      DataSnapshot blogSnapshot = blogEvent.snapshot;
+
+      if (blogSnapshot.value != null) {
+        // Delete the blog entry from the database
+        await blogReference.remove();
+
+        // Delete the blog image from Firebase Storage
+        String imageUrl = blogSnapshot.child('bImage').value.toString();
+        firebase_storage.Reference imageReference = storage.refFromURL(imageUrl);
+        // firebase_storage.FirebaseStorage.instance.refFromURL(imageUrl);
+        
+        await imageReference.delete();
+      }
+      return true;
+    } catch (e) {
+      return e;
+    }
+  }
 }
