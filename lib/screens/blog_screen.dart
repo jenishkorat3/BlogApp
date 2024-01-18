@@ -37,7 +37,6 @@ class _BlogScreenState extends State<BlogScreen> {
               },
               child: const Icon(Icons.add)),
           const SizedBox(width: 15),
-          
         ],
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -81,15 +80,19 @@ class _BlogScreenState extends State<BlogScreen> {
                 ),
                 Expanded(
                   child: FirebaseAnimatedList(
+                    defaultChild: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ), //shimmerblogsCard(context),
                     query: dbRef.child('Blogs List'),
                     itemBuilder: (BuildContext context, snapshot, Animation<double> animation, int index) {
                       String uEmail = snapshot.child('uEmail').value.toString();
                       String tempTitle = snapshot.child('bTitle').value.toString();
-
                       if (searchController.text.isEmpty) {
-                        return blogsCard(context, snapshot, uEmail);
+                        return blogsCard(context, snapshot, uEmail, "blog_screen");
                       } else if (tempTitle.toLowerCase().contains(searchController.text.toString())) {
-                        return blogsCard(context, snapshot, uEmail);
+                        return blogsCard(context, snapshot, uEmail, "blog_screen");
                       } else {
                         return Container();
                       }

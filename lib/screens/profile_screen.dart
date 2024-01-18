@@ -51,31 +51,30 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10, top: 15),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'My Blog:',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: FirebaseAnimatedList(
                         query: dbRef.child('Blogs List'),
+                        defaultChild: Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                         itemBuilder: (BuildContext context, snapshot, Animation<double> animation, int index) {
                           if (snapshot.child('uid').value.toString() == auth.currentUser!.uid) {
-                            return  Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 10, top: 15),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'My Blogs:',
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                  ),
-                                ),
-                            blogsCard(context, snapshot, "You"),
-                              ],
-                            );
+                            return blogsCard(context, snapshot, "You", "profile_screen");
                           } else {
-                            return Container();
+                            return const SizedBox.shrink();
                           }
-
-                          // if(snapshot.hasChild(('uid').value.toString() == auth.currentUser!.uid))
                         },
                       ),
                     ),

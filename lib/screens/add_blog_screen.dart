@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -88,6 +87,11 @@ class AddBlogScreen extends StatelessWidget {
                             hintText: 'Enter blog title',
                             labelText: 'Title',
                             border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.deepOrange,
+                              width: 2,
+                            )),
                           ),
                         ),
                         Padding(
@@ -99,6 +103,11 @@ class AddBlogScreen extends StatelessWidget {
                               hintText: 'Enter blog description',
                               labelText: 'Description',
                               border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.deepOrange,
+                                width: 2,
+                              )),
                             ),
                           ),
                         ),

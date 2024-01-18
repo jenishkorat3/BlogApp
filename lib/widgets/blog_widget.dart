@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:jkblog/screens/fade_image_screen.dart';
+import 'package:jkblog/screens/full_image_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget blogsCard(context, DataSnapshot snapshot, String uEmail) {
+Widget blogsCard(context, DataSnapshot snapshot, String uEmail, String caller) {
   return Padding(
     padding: const EdgeInsets.all(5),
     child: Container(
@@ -25,6 +25,7 @@ Widget blogsCard(context, DataSnapshot snapshot, String uEmail) {
                   MaterialPageRoute(
                     builder: (context) => FullImageScreen(
                       blogImageUrl: snapshot.child('bImage').value.toString(),
+                      caller: caller,
                     ),
                   ),
                 );
@@ -76,9 +77,40 @@ Widget blogsCard(context, DataSnapshot snapshot, String uEmail) {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                uEmail.contains("@")  ? "By: ${uEmail.substring(0, uEmail.indexOf("@"))}" : "By: $uEmail",
+                uEmail.contains("@") ? "By: ${uEmail.substring(0, uEmail.indexOf("@"))}" : "By: $uEmail",
                 style: const TextStyle(fontWeight: FontWeight.w500),
               ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget shimmerblogsCard(context) {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey[500]!,
+    highlightColor: Colors.grey[200]!,
+    child: Padding(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 1,
+              height: MediaQuery.of(context).size.height * 0.4,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 1,
+              height: MediaQuery.of(context).size.height * 0.29,
+              color: Colors.white,
             ),
           ),
         ],
