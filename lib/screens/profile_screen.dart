@@ -11,7 +11,6 @@ import 'package:jkblog/widgets/widget.dart';
 class ProfileScreen extends StatelessWidget {
   final dbRef = FirebaseDatabase.instance.ref().child('Blogs');
   final auth = FirebaseAuth.instance;
-  String email = '';
 
   ProfileScreen({super.key});
 
