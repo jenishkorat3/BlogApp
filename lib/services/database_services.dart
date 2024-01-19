@@ -54,14 +54,7 @@ class DatabaseService {
 
       // Add the blogId to the user's list of blogs
       DatabaseReference userBlogsRef = userRef.child('Users List').child(user.uid).child('blogs');
-      await userBlogsRef.child(blogId).set(
-        // true
-      {
-        'bTitle': title,
-        'bDescription': description,
-        'bImage': imageUrl.toString(),
-      }
-      );
+      await userBlogsRef.child(blogId).set(true);
 
       return true;
     } catch (e) {
