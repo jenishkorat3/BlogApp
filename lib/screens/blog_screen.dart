@@ -89,13 +89,19 @@ class _BlogScreenState extends State<BlogScreen> {
                     itemBuilder: (BuildContext context, snapshot, Animation<double> animation, int index) {
                       String uEmail = snapshot.child('uEmail').value.toString();
                       String tempTitle = snapshot.child('bTitle').value.toString();
-                      if (searchController.text.isEmpty) {
+                      if(snapshot.exists){
+                        if (searchController.text.isEmpty) {
                         return blogsCard(context, snapshot, uEmail, "blog_screen");
                       } else if (tempTitle.toLowerCase().contains(searchController.text.toString())) {
                         return blogsCard(context, snapshot, uEmail, "blog_screen");
                       } else {
                         return Container();
                       }
+                      }
+                      else{
+                        return Text("Uh oh... There is no blogs");
+                      }
+                      
                     },
                   ),
                 ),

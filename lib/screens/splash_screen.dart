@@ -16,6 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     final user = _auth.currentUser;
     if (user != null) {
       isUser = true;
