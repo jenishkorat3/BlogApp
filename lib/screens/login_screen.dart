@@ -21,9 +21,16 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
+            showSnackBar(context, Colors.green, 'Welcome again to jkblog!');
             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
           }
           if (state is AuthFailure) {
+            showSnackBar(context, Colors.red, state.error);
+          }
+          if (state is AuthForgotPasswordEmailSent) {
+            showSnackBar(context, Colors.green, 'Password reset email sent!');
+          }
+          if (state is AuthForgotPasswordNotEmailSent) {
             showSnackBar(context, Colors.red, state.error);
           }
         },
@@ -167,12 +174,28 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          'Forgot the password?',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Theme.of(context).primaryColor,
-                          ),
+                        child: InkWell(
+                          onTap: () {
+                            context.read<AuthBloc>().add(AuthForgotPasswordRequested(email: emailController.text.toString()));
+                          },
+                          child: state is AuthForgotPasswordLoading
+                              ? Container(
+                                  height: 45,
+                                  width: 200,
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  'Forgot the password?',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
                         ),
                       ),
                       const SizedBox(height: 20),

@@ -4,7 +4,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jkblog/blocs/add_blog_bloc/add_blog_bloc.dart';
 import 'package:jkblog/blocs/auth_bloc/auth_bloc.dart';
 import 'package:jkblog/blocs/delete_blog_bloc/delete_blog_bloc.dart';
 import 'package:jkblog/screens/full_image_screen.dart';
@@ -59,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is BlogLoading) {
+            if (state is DeleteBlogLoading) {
               return Center(
                 child: CircularProgressIndicator(
                   color: Theme.of(context).primaryColor,

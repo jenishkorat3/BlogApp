@@ -15,6 +15,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ShowPassword>(_onShowPassword);
 
     on<AuthSignOut>(_onAuthSignOut);
+
+    on<AuthForgotPasswordRequested>(_onAuthForgotPasswordRequested);
   }
 
   @override
@@ -32,7 +34,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final password = event.password;
 
       await AuthServices().signUpUserwithEmailandPassword(name, email, password).then((value) {
-        emit(AuthSuccess());
+        if (value == true) {
+          emit(AuthSuccess());
+        
+        } else {
+          emit(AuthFailure(error: "Please enter valid Email or Password!"));
+        }
       });
     } catch (e) {
       emit(AuthFailure(error: "Please enter valid Email or Password!"));
@@ -47,7 +54,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final password = event.password;
 
       await AuthServices().loginwithEmailAndPassword(email, password).then((value) {
-        emit(AuthSuccess());
+        if (value == true) {
+          emit(AuthSuccess());
+        
+        } else {
+          emit(AuthFailure(error: "Please enter valid Email or Password!"));
+        }
       });
     } catch (e) {
       emit(AuthFailure(error: "Please enter valid Email or Password!"));
@@ -63,11 +75,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else if (value == null) {
           emit(AuthFailure(error: "Google account is not selected!"));
         } else {
-          emit(AuthFailure(error: value));
+          emit(AuthFailure(error: value.toString()));
         }
       });
     } catch (e) {
       emit(AuthFailure(error: e.toString()));
+    }
+  }
+
+  void _onAuthForgotPasswordRequested(AuthForgotPasswordRequested event, Emitter<AuthState> emit) async {
+    emit(AuthForgotPasswordLoading());
+
+    try {
+      await AuthServices().forgotPassword(event.email).then((value) {
+        if (value) {
+          emit(AuthForgotPasswordEmailSent());
+        }
+        else{
+          emit(AuthForgotPasswordNotEmailSent(error: value.toString()));
+        }
+      });
+    } catch (e) {
+      emit(AuthForgotPasswordNotEmailSent(error: e.toString()));
     }
   }
 

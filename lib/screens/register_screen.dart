@@ -28,6 +28,7 @@ class RegisterScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
+            showSnackBar(context, Colors.green, 'Welcome to jkblog!');
             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
           }
           if (state is AuthFailure) {

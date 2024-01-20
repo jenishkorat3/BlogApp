@@ -48,11 +48,20 @@ class AuthServices {
       // If user creation is successful, store user data
 
       if (user != null) {
-      await DatabaseService().storeUserData(user.displayName!, user.email!);
+        await DatabaseService().storeUserData(user.displayName!, user.email!);
         return true;
       }
     } on FirebaseAuthException catch (e) {
       return e.message;
+    }
+  }
+
+  Future forgotPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      return e.toString();
     }
   }
 

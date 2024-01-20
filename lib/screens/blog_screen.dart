@@ -99,7 +99,7 @@ class _BlogScreenState extends State<BlogScreen> {
                       }
                       }
                       else{
-                        return Text("Uh oh... There is no blogs");
+                        return const Text("Uh oh... There is no blogs");
                       }
                       
                     },

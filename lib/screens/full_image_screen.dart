@@ -18,22 +18,22 @@ class FullImageScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         title: const Text('Blog Image'),
       ),
-      body: Expanded(
-        child: Center(
-          child: CachedNetworkImage(
-            imageUrl: blogImageUrl,
-            placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: Colors.grey[500]!,
-              highlightColor: Colors.grey[200]!,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+      body: Center(
+        child: CachedNetworkImage(
+          imageUrl: blogImageUrl,
+          placeholder: (context, url) => Shimmer.fromColors(
+            baseColor: Colors.grey[500]!,
+            highlightColor: Colors.grey[200]!,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 2,
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       ),
     );

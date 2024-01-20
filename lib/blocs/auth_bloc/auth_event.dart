@@ -26,6 +26,14 @@ class AuthLoginRequested extends AuthEvent {
   });
 }
 
+
+class AuthForgotPasswordRequested extends AuthEvent {
+  String email;
+  AuthForgotPasswordRequested({
+    required this.email,
+  });
+}
+
 class AuthSignOut extends AuthEvent{}
 
 class ShowPassword extends AuthEvent {
